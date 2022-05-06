@@ -1,0 +1,48 @@
+<div class="page-header">
+  <h1>Search for your Video</h1>
+</div>
+
+<%= form_with url: search_url, method: :post, class: 'search_form form-inline row', local: true do %>
+  <%= text_field_tag :term,
+    nil,
+    class: 'form-control mr-sm-2 col',
+    placeholder: 'Search',
+    autocomplete: "off",
+    autofocus: true %>
+  <%= submit_tag 'Search',
+    name: nil,
+    data: { disable_with: false },
+    class: 'btn btn-outline-success' %>
+<% end %>
+<div class="search_result">
+  <div class="table-responsive mt-5">
+    <% if @videos
+        if @videos.count != 0 %>
+          <table class="table table-striped table-bordered table-hover">
+            <thead>
+              <th class="text-center">No</th>
+              <th class="text-center">Video title</th>
+              <th class="text-center"> Subject</th>
+            </thead>
+            <tbody>
+          <% @videos.each_with_index do |video, index| %>
+            <tr>
+              <td class="text-center"> 
+                <%= index + 1%>
+              </td>
+              <td class="text-center">
+                <%= video.title %>
+              </td>
+              <td class="text-center">
+                <%= video.subject.title %>
+              </td>
+            </tr>
+          <% end %>
+            </tbody>
+          </table>
+        <% else%>
+            <div class="alert alert-info mt-5">Sorry! We couldn't find any result for your search.</div>`
+        <% end %>
+      <% end %>
+    </div>
+</div>
